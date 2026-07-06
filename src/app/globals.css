@@ -1,26 +1,219 @@
 @import "tailwindcss";
 
+@custom-variant hover (&:hover);
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #1b264f;
+  --brand-navy: #1b264f;
+  --brand-blue: #1971b2;
+  --brand-blue-dark: #145a8f;
+  --brand-sky: #e8f4fc;
+  --brand-muted: #64748b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-muted: var(--brand-muted);
+  --font-sans: var(--font-roboto);
+  --font-display: var(--font-montserrat);
+  --font-family-display: var(--font-montserrat), system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto), system-ui, sans-serif;
+}
+
+a[href],
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(25, 113, 178, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(25, 113, 178, 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.65s ease-out forwards;
+  opacity: 0;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+.animation-delay-700 {
+  animation-delay: 700ms;
+}
+.animation-delay-800 {
+  animation-delay: 800ms;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+@layer components {
+  .funnel-card {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .funnel-card:not(.funnel-card--selected):hover {
+    border-color: var(--brand-blue);
+    background-color: var(--brand-sky);
+    box-shadow: 0 12px 28px -10px rgba(25, 113, 178, 0.45);
+    transform: translateY(-3px);
+  }
+
+  .funnel-card:not(.funnel-card--selected):active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -8px rgba(25, 113, 178, 0.35);
+  }
+
+  .funnel-card--selected:hover {
+    border-color: var(--brand-blue-dark);
+    box-shadow: 0 12px 28px -10px rgba(25, 113, 178, 0.45);
+    transform: translateY(-3px);
+  }
+
+  .funnel-card:not(.funnel-card--selected):hover .funnel-card__icon {
+    background-color: var(--brand-blue);
+    color: #fff;
+  }
+
+  .funnel-card:not(.funnel-card--selected):hover .funnel-card__checkbox {
+    border-color: var(--brand-blue);
+    background-color: var(--brand-sky);
+  }
+
+  .funnel-btn-primary {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .funnel-btn-primary:hover:not(:disabled) {
+    background-color: var(--brand-blue-dark);
+    box-shadow: 0 16px 32px -12px rgba(25, 113, 178, 0.55);
+    transform: translateY(-2px);
+  }
+
+  .funnel-btn-secondary {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .funnel-btn-secondary:hover {
+    background-color: var(--brand-sky);
+    border-color: var(--brand-blue-dark);
+    box-shadow: 0 8px 20px -10px rgba(25, 113, 178, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .funnel-back {
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .funnel-back:hover {
+    background-color: color-mix(in oklab, var(--brand-sky) 85%, white);
+    color: var(--brand-blue);
+  }
 }
