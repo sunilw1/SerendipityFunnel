@@ -38,9 +38,13 @@ export function QuizCard({
         </div>
       )}
       <div className="flex-1">
-        <p className="font-semibold text-brand-navy">{label}</p>
+        <p className="text-base font-semibold text-brand-navy sm:text-lg">
+          {label}
+        </p>
         {description && (
-          <p className="mt-0.5 text-sm text-brand-muted">{description}</p>
+          <p className="mt-1 text-sm leading-snug text-brand-muted sm:text-base">
+            {description}
+          </p>
         )}
       </div>
       {selected && <Check className="h-5 w-5 shrink-0 text-brand-blue" />}
@@ -74,7 +78,9 @@ export function QuizCheckbox({ label, checked, onChange }: QuizCheckboxProps) {
       >
         {checked && <Check className="h-4 w-4 text-white" />}
       </div>
-      <span className="font-medium text-brand-navy">{label}</span>
+      <span className="text-base font-medium text-brand-navy sm:text-lg">
+        {label}
+      </span>
     </button>
   );
 }

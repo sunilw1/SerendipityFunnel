@@ -100,35 +100,44 @@ export default function PlanPage() {
             Your plan is ready
           </span>
         </div>
-        <h1 className="mb-2 font-display text-2xl font-bold text-brand-navy">
-          {getPersonalizedHeadline(answers)}
+        <h1 className="mb-3 font-display text-2xl font-bold text-brand-navy sm:text-3xl">
+          {getPersonalizedHeadline()}
         </h1>
-        <p className="text-sm text-brand-muted">
+        <p className="text-base leading-relaxed text-brand-muted sm:text-lg">
           {getPersonalizedSummary(answers)}
         </p>
         {email && (
-          <p className="mt-3 flex items-center gap-2 text-sm text-brand-navy">
-            <Mail className="h-4 w-4 text-brand-blue" />
+          <p className="mt-4 flex items-center gap-2 text-base text-brand-navy sm:text-lg">
+            <Mail className="h-5 w-5 shrink-0 text-brand-blue" />
             Sent to {maskEmail(email)}
           </p>
         )}
       </div>
 
       <div className="mb-6 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-        <h2 className="mb-4 font-display text-lg font-semibold text-brand-navy">
+        <h2 className="mb-4 font-display text-xl font-semibold text-brand-navy sm:text-2xl">
           Premium includes
         </h2>
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {premiumFeatures.map((feature) => (
-            <li key={feature} className="flex items-start gap-3 text-sm">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand-blue" />
-              <span>{feature}</span>
+            <li key={feature.title} className="flex items-start gap-3">
+              <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand-blue sm:h-6 sm:w-6" />
+              <div>
+                <p className="text-base font-medium text-brand-navy sm:text-lg">
+                  {feature.title}
+                </p>
+                {"description" in feature && feature.description && (
+                  <p className="mt-1 text-sm leading-relaxed text-brand-muted sm:text-base">
+                    {feature.description}
+                  </p>
+                )}
+              </div>
             </li>
           ))}
         </ul>
       </div>
 
-      <h2 className="mb-3 font-display text-lg font-semibold text-brand-navy">
+      <h2 className="mb-3 font-display text-xl font-semibold text-brand-navy sm:text-2xl">
         Choose your billing cycle
       </h2>
       <PlanSelector value={billingCycle} onChange={setBillingCycle} />
