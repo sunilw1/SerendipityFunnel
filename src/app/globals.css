@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant hover (&:hover);
 
@@ -33,7 +33,7 @@ body {
 
 a[href],
 button:not(:disabled),
-[role="button"]:not([aria-disabled="true"]) {
+[role='button']:not([aria-disabled='true']) {
   cursor: pointer;
 }
 
@@ -109,6 +109,22 @@ button:disabled {
 }
 .animation-delay-800 {
   animation-delay: 800ms;
+}
+
+@keyframes launch-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-launch-scale-in {
+  animation: launch-scale-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
 }
 
 @keyframes float {
@@ -216,4 +232,103 @@ button:disabled {
     background-color: color-mix(in oklab, var(--brand-sky) 85%, white);
     color: var(--brand-blue);
   }
+
+  .phone-orbit-stage {
+    --orbit-radius: clamp(8.5rem, 36vw, 11.5rem);
+    --avatar-size: clamp(3.25rem, 11vw, 4rem);
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+  }
+
+  .phone-orbit-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--orbit-radius) * 2 + var(--avatar-size) + 0.75rem);
+    height: calc(var(--orbit-radius) * 2 + var(--avatar-size) + 0.75rem);
+    transform: translate(-50%, -50%);
+    border: 2px dashed rgba(25, 113, 178, 0.45);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .phone-orbit-rotator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 10;
+    width: 0;
+    height: 0;
+    animation: phone-orbit-spin 24s linear infinite;
+  }
+
+  .phone-orbit-position {
+    position: absolute;
+    left: 0;
+    top: -135px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    transform: translateX(var(--orbit-radius))
+      translate(calc(var(--avatar-size) / -2), calc(var(--avatar-size) / -2));
+  }
+
+  .phone-orbit-counter {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    animation: phone-orbit-counter-spin 24s linear infinite;
+  }
+
+  .phone-orbit-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 5;
+    width: 78%;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes phone-orbit-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes phone-orbit-counter-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .phone-orbit-stage {
+      --orbit-radius: clamp(9.25rem, 38vw, 12.5rem);
+      --avatar-size: clamp(3.5rem, 12vw, 4.8rem);
+    }
+
+    .phone-orbit-center {
+      width: 76%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .phone-orbit-rotator,
+    .phone-orbit-counter {
+      animation: none;
+    }
+  }
+}
+.sheild {
+  position: absolute;
+  right: -130px;
+  transform: rotate(23deg);
+  opacity: 0.4;
+  height: 210px;
+  top: -590px;
 }

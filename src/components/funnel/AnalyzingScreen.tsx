@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { Loader2, Shield, MapPin, Bell, Lock } from "lucide-react";
 import { FunnelLogo, FunnelShell } from "@/components/funnel/FunnelShell";
 
+const MESSAGE_INTERVAL_MS = 2800;
+const TOTAL_DURATION_MS = MESSAGE_INTERVAL_MS * 4 + 1200;
+
 const messages = [
   { icon: Shield, text: "Analyzing your safety profile…" },
   { icon: MapPin, text: "Mapping recommended safe zones…" },
@@ -19,14 +22,14 @@ export function AnalyzingScreen() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((i) => (i + 1) % messages.length);
-    }, 900);
+    }, MESSAGE_INTERVAL_MS);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       router.replace("/plan");
-    }, 3800);
+    }, TOTAL_DURATION_MS);
     return () => clearTimeout(timeout);
   }, [router]);
 
@@ -37,12 +40,14 @@ export function AnalyzingScreen() {
     <FunnelShell centered>
       <FunnelLogo />
       <div className="flex flex-col items-center gap-6 py-12">
-        <Loader2 className="h-14 w-14 animate-spin text-brand-blue" />
+        <Loader2 className="h-16 w-16 animate-spin text-brand-blue" />
         <div className="flex items-center gap-3 animate-fade-in" key={index}>
-          <Icon className="h-6 w-6 text-brand-blue" />
-          <p className="text-lg font-medium text-brand-navy">{current.text}</p>
+          <Icon className="h-7 w-7 shrink-0 text-brand-blue" />
+          <p className="text-xl font-semibold text-brand-navy sm:text-2xl">
+            {current.text}
+          </p>
         </div>
-        <p className="text-sm text-brand-muted">
+        <p className="text-base text-brand-muted sm:text-lg">
           This usually takes a few seconds
         </p>
       </div>

@@ -8,6 +8,7 @@ export type ProtectingOption =
   | "partner"
   | "kids"
   | "parents"
+  | "close-friends"
   | "myself"
   | "whole-family";
 

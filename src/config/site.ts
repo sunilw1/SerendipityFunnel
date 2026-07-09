@@ -37,10 +37,21 @@ export const pricingPlans = {
 } as const;
 
 export const premiumFeatures = [
-  "Unlimited family members on your map",
-  "Real-time GPS location sharing",
-  "Custom safe zones & arrival alerts",
-  "Driving safety & crash detection",
-  "SOS emergency alerts",
-  "Location history (30 days)",
+  { title: "Unlimited family members on your map" },
+  { title: "Real-time GPS location sharing" },
+  {
+    title: "Custom safe zones & arrival alerts",
+    description:
+      "100% customized safe zones for arrival & departure notifications.",
+  },
+  {
+    title: "Driving safety & crash detection",
+    description:
+      "Real-Time addresses of your connections with street view.",
+  },
+  {
+    title: "SOS emergency alerts",
+    description: "Get Alerted When Your Connections are Nearby",
+  },
+  { title: "Location history (30 days)" },
 ] as const;

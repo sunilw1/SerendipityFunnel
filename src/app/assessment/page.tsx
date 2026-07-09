@@ -8,6 +8,7 @@ import {
   Users,
   User,
   Home,
+  UsersRound,
   PhoneOff,
   MapPinOff,
   CloudRain,
@@ -29,6 +30,11 @@ import {
 
 const TOTAL_STEPS = 5;
 
+const questionTitleClass =
+  "mb-3 font-display text-2xl font-bold leading-tight text-brand-navy sm:text-3xl";
+const questionSubtitleClass =
+  "mb-5 text-base leading-relaxed text-brand-muted sm:text-lg";
+
 const protectingOptions: {
   id: ProtectingOption;
   label: string;
@@ -38,6 +44,7 @@ const protectingOptions: {
   { id: "partner", label: "My partner", description: "Stay connected when apart", icon: <Heart className="h-6 w-6" /> },
   { id: "kids", label: "My children", description: "Know they're safe at school & play", icon: <Baby className="h-6 w-6" /> },
   { id: "parents", label: "My parents", description: "Peace of mind for aging loved ones", icon: <Users className="h-6 w-6" /> },
+  { id: "close-friends", label: "My Close Friends", description: "Ensure my friends are safe", icon: <UsersRound className="h-6 w-6" /> },
   { id: "myself", label: "Myself", description: "Let family know I'm okay", icon: <User className="h-6 w-6" /> },
   { id: "whole-family", label: "Whole family", description: "Everyone on one safety map", icon: <Home className="h-6 w-6" /> },
 ];
@@ -74,12 +81,14 @@ export default function AssessmentPage() {
     setUrgent,
     setEmail,
     setStep,
+    reset,
   } = useFunnelStore();
 
   const currentStep = step + 1;
 
   function handleBack() {
     if (step === 0) {
+      reset();
       router.push("/");
       return;
     }
@@ -113,10 +122,10 @@ export default function AssessmentPage() {
 
       {step === 0 && (
         <div className="animate-fade-in space-y-4">
-          <h2 className="mb-2 font-display text-2xl font-bold text-brand-navy">
+          <h2 className={questionTitleClass}>
             Who are you trying to keep safe?
           </h2>
-          <p className="mb-4 text-brand-muted">Select the option that fits best</p>
+          <p className={questionSubtitleClass}>Select the option that fits best</p>
           <div className="space-y-3">
             {protectingOptions.map((opt) => (
               <QuizCard
@@ -134,10 +143,10 @@ export default function AssessmentPage() {
 
       {step === 1 && (
         <div className="animate-fade-in space-y-4">
-          <h2 className="mb-2 font-display text-2xl font-bold text-brand-navy">
+          <h2 className={questionTitleClass}>
             What keeps you up at night?
           </h2>
-          <p className="mb-4 text-brand-muted">Select all that apply</p>
+          <p className={questionSubtitleClass}>Select all that apply</p>
           <div className="space-y-2">
             {painPointOptions.map((opt) => (
               <QuizCheckbox
@@ -160,10 +169,10 @@ export default function AssessmentPage() {
 
       {step === 2 && (
         <div className="animate-fade-in space-y-4">
-          <h2 className="mb-2 font-display text-2xl font-bold text-brand-navy">
+          <h2 className={questionTitleClass}>
             How many safe zones do you need?
           </h2>
-          <p className="mb-4 text-brand-muted">
+          <p className={questionSubtitleClass}>
             Safe zones alert you when family arrives or leaves key places
           </p>
           <div className="space-y-3">
@@ -182,11 +191,11 @@ export default function AssessmentPage() {
 
       {step === 3 && (
         <div className="animate-fade-in space-y-4">
-          <h2 className="mb-2 font-display text-2xl font-bold text-brand-navy">
+          <h2 className={questionTitleClass}>
             Do you need peace of mind today?
           </h2>
-          <p className="mb-4 text-brand-muted">
-            We'll prioritize your setup if you're ready to start now
+          <p className={questionSubtitleClass}>
+            We&apos;ll prioritize your setup if you&apos;re ready to start now
           </p>
           <div className="grid grid-cols-2 gap-3">
             <QuizCard
@@ -207,10 +216,10 @@ export default function AssessmentPage() {
 
       {step === 4 && (
         <div className="animate-fade-in">
-          <h2 className="mb-2 font-display text-2xl font-bold text-brand-navy">
+          <h2 className={questionTitleClass}>
             Where should we send your results?
           </h2>
-          <p className="mb-6 text-brand-muted">
+          <p className={`${questionSubtitleClass} mb-6`}>
             Enter your email to see your personalized safety plan
           </p>
           <form onSubmit={handleEmailSubmit} className="space-y-4">
@@ -223,14 +232,14 @@ export default function AssessmentPage() {
               }}
               placeholder="you@example.com"
               autoComplete="email"
-              className="w-full rounded-2xl border-2 border-slate-200 bg-white px-4 py-4 text-brand-navy outline-none transition-colors focus:border-brand-blue"
+              className="w-full rounded-2xl border-2 border-slate-200 bg-white px-4 py-4 text-base text-brand-navy outline-none transition-colors focus:border-brand-blue sm:text-lg"
             />
             {emailError && (
-              <p className="text-sm text-red-600">{emailError}</p>
+              <p className="text-base text-red-600">{emailError}</p>
             )}
             <PulsingButton type="submit">See My Plan</PulsingButton>
           </form>
-          <p className="mt-4 text-center text-xs text-brand-muted">
+          <p className="mt-4 text-center text-sm leading-relaxed text-brand-muted sm:text-base">
             We respect your privacy. Unsubscribe anytime.
           </p>
         </div>
